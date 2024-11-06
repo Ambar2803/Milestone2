@@ -1,31 +1,24 @@
+// Import express to make a server
 const express = require('express');
-const app = express();
-const port = 3000;
-const path = require('path');
+const app = express();  // Create an express app
+const port = 3000;  // Set the port where the server will run
+const path = require('path');  // Use path to work with file paths
 
-// Middleware to parse URL-encoded form data
+// Use express to handle form data
 app.use(express.urlencoded({ extended: true }));
 
-// Debugging middleware to log incoming requests
-app.use((req, res, next) => {
-    console.log(`Method: ${req.method}, URL: ${req.url}`);
-    next();
-});
-
-// Route to serve the HTML form
+// When someone visits the homepage ('/'), show them the HTML form
 app.get('/', (req, res) => {
-    console.log('Serving index.html'); // Log when serving the form
-    res.sendFile(path.join(__dirname, '/index.html'));
+    res.sendFile(path.join(__dirname, '/index.html'));  // Send the index.html file
 });
 
-// Route to handle form submission via POST
+// Handle the form submission when the form is submitted
 app.post('/submit-form', (req, res) => {
-    console.log(req.body); // Log the POST request body
-    const username = req.body.username;
-    res.send(`Username is ${username}`);
+    const username = req.body.username;  // Get the username from the form data
+    res.send(`Username is ${username}`);  // Send a response with the username
 });
 
-// Start the server
+// Start the server and listen on the set port
 app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
+    console.log(`Server running on http://localhost:${port}`);  // Log that the server is running
 });
